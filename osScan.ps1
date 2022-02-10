@@ -10,6 +10,7 @@
 $uname = Read-Host "Enter Domain\Username "
 $pword = Read-Host "Enter Password " -AsSecureString
 $Credentials = New-Object System.Management.Automation.PSCredential $uname,$pword
+$targetList = <add list file>
 
 #Create function to pull reg info
 function Get-osScan { 
@@ -35,7 +36,7 @@ Write-Host "Build: $BuildNumber"
 	}	
 
 #Remote execution command using admin credentials
-ForEach($RemoteComputer in Get-Content "C:\Users\JU30017\OneDrive - MIT Lincoln Laboratory\HomeDrive\Working\list.txt") {
+ForEach($RemoteComputer in Get-Content "$targetList") {
 
 Invoke-Command -ComputerName $RemoteComputer -Credential $Credentials ${Function:Get-osScan}
 
